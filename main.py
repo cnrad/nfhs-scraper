@@ -3,14 +3,15 @@ import requests
 import os 
 from pathlib import Path 
 
-game_id = "gam67ba2a837e" # Game ID goes here
+game_id = "your_game_id" # Game ID goes here
+scrub_count = 600
 
 project_folder = str(Path(__file__).parent.resolve())
 scrub_number = 1
 ts_list = []
 s = requests.Session()
 
-for i in range(600):
+for i in range(scrub_count):
     scrub_id = f'{scrub_number:06}'
     scrub_url = f"https://cfscrubbed.nfhsnetwork.com/{game_id}/{game_id}_{scrub_id}.ts"
 
@@ -39,5 +40,7 @@ for file in ts_list:
         print(f"Removed {file}")
     else:
         print(f"Cannot find {file}")
+
+os.remove(f"{project_folder}/tslist.txt")
 
 print("Program done, output complete.")
